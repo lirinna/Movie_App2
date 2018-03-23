@@ -20,10 +20,22 @@ public class MovieDBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
+        final String SQL_CREATE_MOVIE_TABLE = "CREATE TABLE " +
+                MovieContract.MovieEntry.TABLE_NAME + " (" +
+                MovieContract.MovieEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                MovieContract.MovieEntry.COLUMN_NAME_MOVIE_ID + " TEXT MOT NULL, " +
+                MovieContract.MovieEntry.COLUMN_NAME_TITLE + " TEXT MOT NULL, " +
+                MovieContract.MovieEntry.COLUMN_NAME_OVERVIEW + " TEXT MOT NULL, " +
+                MovieContract.MovieEntry.COLUMN_NAME_POSTER + " TEXT MOT NULL, " +
+                MovieContract.MovieEntry.COLUMN_NAME_RELEASE_DATE + " TEXT MOT NULL, " +
+                MovieContract.MovieEntry.COLUMN_NAME_VOTE_AVERAGE + " TEXT MOT NULL);";
+
+        sqLiteDatabase.execSQL(SQL_CREATE_MOVIE_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + MovieContract.MovieEntry.TABLE_NAME);
+        onCreate(sqLiteDatabase);
     }
 }
