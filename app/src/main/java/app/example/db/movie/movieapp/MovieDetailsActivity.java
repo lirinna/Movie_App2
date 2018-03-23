@@ -32,12 +32,14 @@ public class MovieDetailsActivity extends AppCompatActivity {
         Movie movieObject = getIntent().getParcelableExtra("movieObject");
         if (movieObject != null) {
 
+            String id = movieObject.getId();
             String title = movieObject.getTitle();
             String date = movieObject.getReleaseDate();
             String poster = movieObject.getPosterPath();
             String vote_average = movieObject.getVoteAverage();
             String overview = movieObject.getOverview();
 
+            Log.d(TAG, id);
             Log.d(TAG, title);
             Log.d(TAG, date);
             Log.d(TAG, poster);

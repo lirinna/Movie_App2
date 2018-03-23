@@ -13,6 +13,7 @@ import app.example.db.movie.movieapp.model.Movie;
 public class JsonUtils {
 
     private static final String MOVIE_TITLE = "title";
+    private static final String MOVIE_ID = "id";
     private static final String MOVIE_POSTER_PATH = "poster_path";
     private static final String MOVIE_OVERVIEW = "overview";
     private static final String MOVIE_VOTE_AVERAGE = "vote_average";
@@ -29,6 +30,7 @@ public class JsonUtils {
         for (int i = 0; i < JSONArray_Results.length(); i++) {
             jsonObject_result = JSONArray_Results.getJSONObject(i);
             Movie movie = new Movie();
+            movie.setId(jsonObject_result.optString(MOVIE_ID));
             movie.setTitle(jsonObject_result.optString(MOVIE_TITLE));
             movie.setPosterPath(jsonObject_result.optString(MOVIE_POSTER_PATH));
             movie.setOverview(jsonObject_result.optString(MOVIE_OVERVIEW));
