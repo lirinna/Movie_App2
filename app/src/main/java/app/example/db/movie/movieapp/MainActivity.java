@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
     private String mSortingQuery;
     private String mSortingTitle;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,16 +46,12 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
 
         GridLayoutManager manager = new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(manager);
-
-        /*
-        * Use this setting to improve performance if you know that changes in content do not
-        * change the child layout size in the RecyclerView
-        */
         mRecyclerView.setHasFixedSize(true);
 
         mMovieAdapter = new MovieAdapter(this);
         mRecyclerView.setAdapter(mMovieAdapter);
         mMovieAdapter.notifyDataSetChanged();
+
 
         loadMovieData();
 

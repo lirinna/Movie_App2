@@ -24,6 +24,12 @@
             android:name=".MovieDetailsActivity"
             android:label="@string/movie_details"
             android:parentActivityName=".MainActivity" />
+
+
+        <provider
+            android:name="app.example.db.movie.movieapp.data.MovieContentProvider"
+            android:authorities="capp.example.db.movie.movieapp"
+            android:exported="false"/>
     </application>
 
 </manifest>
