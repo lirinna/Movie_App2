@@ -1,6 +1,8 @@
 package app.example.db.movie.movieapp;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.app.NavUtils;
@@ -8,11 +10,16 @@ import android.support.v7.app.AppCompatActivity;
 
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.net.URI;
+
+import app.example.db.movie.movieapp.data.MovieContract;
 import app.example.db.movie.movieapp.model.Movie;
 
 /**
@@ -22,6 +29,15 @@ import app.example.db.movie.movieapp.model.Movie;
 public class MovieDetailsActivity extends AppCompatActivity {
     private static final String TAG = MovieDetailsActivity.class.getSimpleName();
 
+    String id;
+    String title;
+    String date;
+    String poster;
+    String vote_average;
+    String overview;
+
+    Button mfavoritButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,15 +45,17 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        mfavoritButton = (Button) findViewById(R.id.btn_favorit);
+
         Movie movieObject = getIntent().getParcelableExtra("movieObject");
         if (movieObject != null) {
 
-            String id = movieObject.getId();
-            String title = movieObject.getTitle();
-            String date = movieObject.getReleaseDate();
-            String poster = movieObject.getPosterPath();
-            String vote_average = movieObject.getVoteAverage();
-            String overview = movieObject.getOverview();
+            id = movieObject.getId();
+            title = movieObject.getTitle();
+            date = movieObject.getReleaseDate();
+            poster = movieObject.getPosterPath();
+            vote_average = movieObject.getVoteAverage();
+            overview = movieObject.getOverview();
 
             Log.d(TAG, id);
             Log.d(TAG, title);
@@ -79,4 +97,24 @@ public class MovieDetailsActivity extends AppCompatActivity {
     }
 
 
+    public void onClickAddMovie(View view) {
+
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(MovieContract.MovieEntry.COLUMN_NAME_MOVIE_ID, id);
+        contentValues.put(MovieContract.MovieEntry.COLUMN_NAME_TITLE, title);
+        contentValues.put(MovieContract.MovieEntry.COLUMN_NAME_OVERVIEW, overview);
+        contentValues.put(MovieContract.MovieEntry.COLUMN_NAME_POSTER, poster);
+        contentValues.put(MovieContract.MovieEntry.COLUMN_NAME_RELEASE_DATE, date);
+        contentValues.put(MovieContract.MovieEntry.COLUMN_NAME_VOTE_AVERAGE, vote_average);
+
+        Uri uri = getContentResolver().insert(MovieContract.MovieEntry.CONTENT_URI, contentValues);
+
+        if (uri != null) {
+            Log.d(TAG, "uri: " + uri.toString());
+        }
+
+        finish();
+
+    }
 }
