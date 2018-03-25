@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
     private static final String SORTING_TITLE_KEY = "sortingTitle";
     private static final String SORTING_QUERY_KEY = "sortingQuery";
 
+    private static final int TASK_LOADER_ID = 0;
+
     private RecyclerView mRecyclerView;
     private MovieAdapter mMovieAdapter;
     private Movie[] mMovie = null;
