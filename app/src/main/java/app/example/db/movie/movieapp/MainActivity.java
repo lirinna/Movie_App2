@@ -17,7 +17,9 @@ import android.view.View;
 
 import java.net.URL;
 
+import app.example.db.movie.movieapp.adapter.FavoritesCursorAdapter;
 import app.example.db.movie.movieapp.adapter.MovieAdapter;
+import app.example.db.movie.movieapp.loader.FetchMovieData;
 import app.example.db.movie.movieapp.model.Movie;
 import app.example.db.movie.movieapp.utilities.JsonUtils;
 import app.example.db.movie.movieapp.utilities.NetworkUtils;
@@ -34,7 +36,8 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
 
     private RecyclerView mRecyclerView;
     private MovieAdapter mMovieAdapter;
-    private Movie[] mMovie = null;
+    private FavoritesCursorAdapter mFavoritAdapter;
+
     private String mSortingQuery;
     private String mSortingTitle;
 
@@ -65,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
                 mSortingQuery = savedInstanceState.getString(SORTING_QUERY_KEY);
                 mSortingTitle = savedInstanceState.getString(SORTING_TITLE_KEY);
                 setTitle(mSortingTitle);
-                new FetchMovieData().execute(mSortingQuery);
+                new FetchMovieData(mMovieAdapter).execute(mSortingQuery);
             }
         }
     }
@@ -79,10 +82,9 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
 
     private void loadMovieData() {
         if (!isOnline()) return;
-        showMovieDataView();
 
         String defaultList = "popular";
-        new FetchMovieData().execute(defaultList);
+        new FetchMovieData(mMovieAdapter).execute(defaultList);
         setTitle("Popular Movies");
     }
 
@@ -113,13 +115,13 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
             Log.e(TAG, "pop");
             mSortingQuery = "popular";
             mSortingTitle = "Popular Movies";
-            new FetchMovieData().execute(mSortingQuery);
+            new FetchMovieData(mMovieAdapter).execute(mSortingQuery);
             setTitle(mSortingTitle);
         } else if (id == pref_top_rated) {
             Log.e(TAG, "top rated");
             mSortingQuery = "top_rated";
             mSortingTitle = "Top Rated Movies";
-            new FetchMovieData().execute(mSortingQuery);
+            new FetchMovieData(mMovieAdapter).execute(mSortingQuery);
             setTitle(mSortingTitle);
         }
         else if (id == pref_favorites) {
@@ -140,54 +142,5 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
         intent.putExtra("movieObject", movieItem);
         startActivity(intent);
     }
-
-
-    private void showMovieDataView() {
-        mRecyclerView.setVisibility(View.VISIBLE);
-    }
-
-
-    public class FetchMovieData extends AsyncTask<String, Void, Movie[]> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Movie[] doInBackground(String... params) {
-
-            if (params.length == 0) {
-                return null;
-            }
-
-            String movie = params[0];
-            URL movieUrl = NetworkUtils.buildUrl(movie);
-
-            try {
-                String jsonMovieResponse = NetworkUtils
-                        .getResponseFromHttpUrl(movieUrl);
-
-                mMovie = JsonUtils
-                        .parseMovieJson(jsonMovieResponse);
-
-                return mMovie;
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
-            }
-        }
-
-        @Override
-        protected void onPostExecute(Movie[] movieData) {
-            if (movieData != null) {
-                showMovieDataView();
-                mMovieAdapter.setMovieData(movieData);
-
-            }
-        }
-    }
-
 
 }
