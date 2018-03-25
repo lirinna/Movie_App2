@@ -1,13 +1,17 @@
 package app.example.db.movie.movieapp.data;
 
 import android.content.ContentProvider;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
+import static app.example.db.movie.movieapp.data.MovieContract.MovieEntry.TABLE_NAME;
 
 /**
  * Created by Katy on 23.03.2018.
@@ -39,7 +43,6 @@ public class MovieContentProvider extends ContentProvider {
     }
 
 
-
     @Override
     public boolean onCreate() {
         Context context = getContext();
@@ -62,7 +65,29 @@ public class MovieContentProvider extends ContentProvider {
     @Nullable
     @Override
     public Uri insert(@NonNull Uri uri, ContentValues contentValues) {
-        throw new UnsupportedOperationException("Not yet implemented");
+
+        final SQLiteDatabase db = mMovieDbHelper.getWritableDatabase();
+
+        int match = sUriMatcher.match(uri);
+        Uri returnUri;
+
+        switch (match) {
+            case MOVIES:
+                long id = db.insert(TABLE_NAME, null, contentValues); // will return -1 if not successful
+                if (id > 0) {
+                    returnUri = ContentUris.withAppendedId(MovieContract.MovieEntry.CONTENT_URI, id);
+                } else {
+                    throw new android.database.SQLException("Failed to insert row into " + uri);
+                }
+                break;
+            default:
+                throw new UnsupportedOperationException("Unknown uri: " + uri);
+        }
+
+        getContext().getContentResolver().notifyChange(uri, null);
+
+        // Return constructed uri (this points to the newly inserted row of data)
+        return returnUri;
     }
 
     @Override
