@@ -14,7 +14,6 @@ public class MovieContract {
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + AUTHORITY);
     public static final String PATH_MOVIES = "movies";
 
-
     private MovieContract() {
     }
 
@@ -29,8 +28,5 @@ public class MovieContract {
         public static final String COLUMN_NAME_POSTER = "poster";
         public static final String COLUMN_NAME_RELEASE_DATE = "release_date";
         public static final String COLUMN_NAME_VOTE_AVERAGE = "vote_average";
-
-
     }
-
 }
