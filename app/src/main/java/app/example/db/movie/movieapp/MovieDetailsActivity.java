@@ -36,16 +36,12 @@ public class MovieDetailsActivity extends AppCompatActivity {
     String vote_average;
     String overview;
 
-    Button mfavoritButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        mfavoritButton = (Button) findViewById(R.id.btn_favorit);
 
         Movie movieObject = getIntent().getParcelableExtra("movieObject");
         if (movieObject != null) {

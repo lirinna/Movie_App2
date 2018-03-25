@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
         int id = item.getItemId();
         int pref_popular = R.id.pref_popular;
         int pref_top_rated = R.id.pref_top_rated;
+        int pref_favorites = R.id.pref_favorite;
 
         if (id == pref_popular) {
             Log.e(TAG, "pop");
@@ -119,6 +120,13 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
             mSortingQuery = "top_rated";
             mSortingTitle = "Top Rated Movies";
             new FetchMovieData().execute(mSortingQuery);
+            setTitle(mSortingTitle);
+        }
+        else if (id == pref_favorites) {
+            Log.e(TAG, "favorites");
+            mSortingQuery = "favorites";
+            mSortingTitle = "Favorite Movies";
+
             setTitle(mSortingTitle);
         }
         return super.onOptionsItemSelected(item);
