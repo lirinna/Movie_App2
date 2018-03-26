@@ -41,9 +41,6 @@ public class FavoritesCursorAdapter extends RecyclerView.Adapter<FavoritesCursor
     @Override
     public void onBindViewHolder(MovieViewHolder holder, int position) {
 
-
-
-
         mCursor.moveToPosition(position); // get to the right location in the cursor
 
         int posterIndex = mCursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_NAME_POSTER);

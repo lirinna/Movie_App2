@@ -1,15 +1,10 @@
 package app.example.db.movie.movieapp;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.AsyncTaskLoader;
-import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,13 +15,11 @@ import android.view.MenuItem;
 
 import app.example.db.movie.movieapp.adapter.FavoritesCursorAdapter;
 import app.example.db.movie.movieapp.adapter.MovieAdapter;
-import app.example.db.movie.movieapp.data.MovieContract;
+import app.example.db.movie.movieapp.loader.FavoriteMovieLoader;
 import app.example.db.movie.movieapp.loader.FetchMovieData;
 import app.example.db.movie.movieapp.model.Movie;
 
-// https://github.com/udacity/Advanced_Android_Development/blob/master/app/src/main/java/com/example/android/sunshine/app/ForecastFragment.java
-
-public class MainActivity extends AppCompatActivity implements MovieAdapter.MovieAdapterOnClickHandler, LoaderManager.LoaderCallbacks<Cursor> {
+public class MainActivity extends AppCompatActivity implements MovieAdapter.MovieAdapterOnClickHandler {
     private static final String TAG = MainActivity.class.getSimpleName();
 
     private static final String SORTING_TITLE_KEY = "sortingTitle";
@@ -36,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
 
     private RecyclerView mRecyclerView;
     private MovieAdapter mMovieAdapter;
-    FavoritesCursorAdapter favoritesAdapter;
+    private FavoritesCursorAdapter mFavoritesAdapter;
 
     private String mSortingQuery;
     private String mSortingTitle;
@@ -54,6 +47,9 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
         mRecyclerView.setHasFixedSize(true);
 
         mMovieAdapter = new MovieAdapter(this);
+        mFavoritesAdapter = new FavoritesCursorAdapter(this);
+
+
         mRecyclerView.setAdapter(mMovieAdapter);
         mMovieAdapter.notifyDataSetChanged();
 
@@ -68,12 +64,10 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
                 mSortingQuery = savedInstanceState.getString(SORTING_QUERY_KEY);
                 mSortingTitle = savedInstanceState.getString(SORTING_TITLE_KEY);
                 setTitle(mSortingTitle);
-                if (mSortingQuery.equals("favorites")) {
 
-                    favoritesAdapter = new FavoritesCursorAdapter(this);
-                    mRecyclerView.setAdapter(favoritesAdapter);
-                    getSupportLoaderManager().initLoader(
-                            TASK_LOADER_ID, null, this);
+                if (mSortingQuery.equals("favorites")) {
+                    mRecyclerView.setAdapter(mFavoritesAdapter);
+                     getSupportLoaderManager().initLoader(TASK_LOADER_ID, null, new FavoriteMovieLoader(this, mFavoritesAdapter));
                     setTitle(mSortingTitle);
 
                 } else {
@@ -127,30 +121,26 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
             mSortingQuery = "popular";
             mSortingTitle = "Popular Movies";
 
-            mMovieAdapter = new MovieAdapter(this);
             mRecyclerView.setAdapter(mMovieAdapter);
-
             new FetchMovieData(mMovieAdapter).execute(mSortingQuery);
             setTitle(mSortingTitle);
+
         } else if (id == pref_top_rated) {
             Log.e(TAG, "top rated");
             mSortingQuery = "top_rated";
             mSortingTitle = "Top Rated Movies";
 
-            mMovieAdapter = new MovieAdapter(this);
             mRecyclerView.setAdapter(mMovieAdapter);
-
             new FetchMovieData(mMovieAdapter).execute(mSortingQuery);
             setTitle(mSortingTitle);
+
         } else if (id == pref_favorites) {
             Log.e(TAG, "favorites");
             mSortingQuery = "favorites";
             mSortingTitle = "Favorite Movies";
 
-            favoritesAdapter = new FavoritesCursorAdapter(this);
-            mRecyclerView.setAdapter(favoritesAdapter);
-            getSupportLoaderManager().initLoader(
-                    TASK_LOADER_ID, null, this);
+            mRecyclerView.setAdapter(mFavoritesAdapter);
+            getSupportLoaderManager().initLoader(TASK_LOADER_ID, null, new FavoriteMovieLoader(this, mFavoritesAdapter));
             setTitle(mSortingTitle);
         }
         return super.onOptionsItemSelected(item);
@@ -163,55 +153,6 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
         Intent intent = new Intent(this, MovieDetailsActivity.class);
         intent.putExtra("movieObject", movieItem);
         startActivity(intent);
-    }
-
-
-    @SuppressLint("StaticFieldLeak")
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle loaderArgs) {
-        return new AsyncTaskLoader<Cursor>(this) {
-            Cursor mMovies = null;
-
-            @Override
-            protected void onStartLoading() {
-                if (mMovies != null) {
-                    deliverResult(mMovies);
-                } else {
-                    forceLoad();
-                }
-            }
-
-            @Override
-            public Cursor loadInBackground() {
-                try {
-                    return getContentResolver().query(MovieContract.MovieEntry.CONTENT_URI,
-                            null,
-                            null,
-                            null,
-                            MovieContract.MovieEntry.COLUMN_NAME_MOVIE_ID);
-                } catch (Exception e) {
-                    Log.e(TAG, "Failed to asynchronously load data.");
-                    e.printStackTrace();
-                    return null;
-                }
-            }
-
-            @Override
-            public void deliverResult(Cursor data) {
-                mMovies = data;
-                super.deliverResult(data);
-            }
-        };
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        favoritesAdapter.swapCursor(data);
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-        favoritesAdapter.swapCursor(null);
     }
 
 }
