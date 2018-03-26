@@ -15,8 +15,9 @@ import static app.example.db.movie.movieapp.data.MovieContract.MovieEntry.TABLE_
 
 /**
  * Created by Katy on 23.03.2018.
+ *
  */
-
+// https://github.com/udacity/ud851-Exercises/blob/student/Lesson09-ToDo-List/T09.06-Solution-Delete/app/src/main/java/com/example/android/todolist/data/TaskContentProvider.java
 public class MovieContentProvider extends ContentProvider {
 
     private MovieDbHelper mMovieDbHelper;
@@ -111,7 +112,29 @@ public class MovieContentProvider extends ContentProvider {
 
     @Override
     public int delete(@NonNull Uri uri, String selection, String[] selectionArgs) {
-        throw new UnsupportedOperationException("Not yet implemented");
+
+        final SQLiteDatabase db = mMovieDbHelper.getWritableDatabase();
+
+        int match = sUriMatcher.match(uri);
+        int moviesDeleted;
+
+        switch (match) {
+            // Handle the single item case, recognized by the ID included in the URI path
+            case MOVIE_WITH_ID:
+                // Get the movie ID from the URI path
+                String id = uri.getPathSegments().get(1);
+                // Use selections/selectionArgs to filter for this ID
+                moviesDeleted = db.delete(TABLE_NAME, "_id=?", new String[]{id});
+                break;
+            default:
+                throw new UnsupportedOperationException("Unknown uri: " + uri);
+        }
+
+        if (moviesDeleted != 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+
+        return moviesDeleted;
     }
 
     @Override

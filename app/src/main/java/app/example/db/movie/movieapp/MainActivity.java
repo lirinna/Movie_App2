@@ -53,12 +53,8 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
         mRecyclerView.setAdapter(mMovieAdapter);
         mMovieAdapter.notifyDataSetChanged();
 
-
         loadMovieData();
 
-
-        // recovering the instance state
-        /* https://github.com/fjoglar/android-dev-challenge/blob/master/articles/lesson-06-lifecycle.md */
         if (savedInstanceState != null) {
             if (savedInstanceState.containsKey(SORTING_QUERY_KEY) && savedInstanceState.containsKey(SORTING_TITLE_KEY)) {
                 mSortingQuery = savedInstanceState.getString(SORTING_QUERY_KEY);
@@ -73,7 +69,6 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
                 } else {
                     new FetchMovieData(mMovieAdapter).execute(mSortingQuery);
                 }
-
             }
         }
     }
@@ -87,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
 
     private void loadMovieData() {
         if (!isOnline()) return;
-
         String defaultList = "popular";
         new FetchMovieData(mMovieAdapter).execute(defaultList);
         setTitle("Popular Movies");

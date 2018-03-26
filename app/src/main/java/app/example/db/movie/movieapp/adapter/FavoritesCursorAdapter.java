@@ -18,6 +18,8 @@ import app.example.db.movie.movieapp.data.MovieContract;
  * Created by Katy on 25.03.2018.
  */
 
+// https://github.com/udacity/ud851-Exercises/blob/student/Lesson09-ToDo-List/T09.05-Solution-QueryAllTasks/app/src/main/java/com/example/android/todolist/CustomCursorAdapter.java
+
 public class FavoritesCursorAdapter extends RecyclerView.Adapter<FavoritesCursorAdapter.MovieViewHolder> {
     private static final String TAG = FavoritesCursorAdapter.class.getSimpleName();
 
