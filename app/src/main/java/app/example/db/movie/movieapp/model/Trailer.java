@@ -7,26 +7,26 @@ package app.example.db.movie.movieapp.model;
 
 public class Trailer {
 
-    private String mKey;
-    private String mName;
+    private String key;
+    private String name;
 
     public Trailer() {
 
     }
 
-    public String getmKey() {
-        return mKey;
+    public String getKey() {
+        return key;
     }
 
-    public String getmName() {
-        return mName;
+    public String getName() {
+        return name;
     }
 
-    public void setmKey(String mKey) {
-        this.mKey = mKey;
+    public void setKey(String key) {
+        this.key = key;
     }
 
-    public void setmName(String mName) {
-        this.mName = mName;
+    public void setName(String name) {
+        this.name = name;
     }
 }
