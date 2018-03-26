@@ -49,9 +49,8 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
         mMovieAdapter = new MovieAdapter(this);
         mFavoritesAdapter = new FavoritesCursorAdapter(this);
 
-
         mRecyclerView.setAdapter(mMovieAdapter);
-        mMovieAdapter.notifyDataSetChanged();
+
 
         loadMovieData();
 
@@ -103,6 +102,14 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        // re-queries for all tasks
+        getSupportLoaderManager().restartLoader(TASK_LOADER_ID, null, new FavoriteMovieLoader(this, mFavoritesAdapter));
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (!isOnline()) return false;
         int id = item.getItemId();
@@ -133,7 +140,9 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
             mSortingQuery = "favorites";
             mSortingTitle = "Favorite Movies";
 
+            mFavoritesAdapter = new FavoritesCursorAdapter(this);
             mRecyclerView.setAdapter(mFavoritesAdapter);
+
             getSupportLoaderManager().initLoader(TASK_LOADER_ID, null, new FavoriteMovieLoader(this, mFavoritesAdapter));
             setTitle(mSortingTitle);
         }

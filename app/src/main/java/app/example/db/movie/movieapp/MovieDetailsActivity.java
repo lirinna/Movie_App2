@@ -43,6 +43,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
         Movie movieObject = getIntent().getParcelableExtra("movieObject");
         if (movieObject != null) {
 
@@ -106,11 +107,12 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         Uri uri = getContentResolver().insert(MovieContract.MovieEntry.CONTENT_URI, contentValues);
 
+
         if (uri != null) {
             Log.e(TAG, "uri: " + uri.toString());
         }
 
-        finish();
+      finish();
 
     }
 }

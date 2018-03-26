@@ -15,6 +15,7 @@ import app.example.db.movie.movieapp.data.MovieContract;
 
 /**
  * Created by Katy on 26.03.2018.
+ * Used Sources: https://github.com/udacity/ud851-Exercises/blob/student/Lesson09-ToDo-List/T09.06-Solution-Delete/app/src/main/java/com/example/android/todolist/MainActivity.java
  */
 
 public class FavoriteMovieLoader implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -28,6 +29,8 @@ public class FavoriteMovieLoader implements LoaderManager.LoaderCallbacks<Cursor
         this.mContext = context;
         this.mFavoritesAdapter = favoritesAdapter;
     }
+
+
 
     @SuppressLint("StaticFieldLeak")
     @Override
