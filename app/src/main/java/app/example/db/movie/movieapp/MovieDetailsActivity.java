@@ -107,7 +107,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         Uri uri = getContentResolver().insert(MovieContract.MovieEntry.CONTENT_URI, contentValues);
 
         if (uri != null) {
-            Log.d(TAG, "uri: " + uri.toString());
+            Log.e(TAG, "uri: " + uri.toString());
         }
 
         finish();

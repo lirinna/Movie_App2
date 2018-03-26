@@ -1,5 +1,6 @@
 package app.example.db.movie.movieapp.model;
 
+import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -15,7 +16,6 @@ public class Movie implements Parcelable {
     private String posterPath;
     private String releaseDate;
     private String voteAverage;
-
 
     public String getId() {
         return id;
