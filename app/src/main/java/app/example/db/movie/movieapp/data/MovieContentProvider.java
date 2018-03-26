@@ -10,16 +10,17 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import static app.example.db.movie.movieapp.data.MovieContract.MovieEntry.TABLE_NAME;
 
 /**
  * Created by Katy on 23.03.2018.
- *
  */
 // https://github.com/udacity/ud851-Exercises/blob/student/Lesson09-ToDo-List/T09.06-Solution-Delete/app/src/main/java/com/example/android/todolist/data/TaskContentProvider.java
 public class MovieContentProvider extends ContentProvider {
 
+    private static final String TAG = MovieContentProvider.class.getSimpleName();
     private MovieDbHelper mMovieDbHelper;
 
     // 100, 200, 300, etc for directories
@@ -68,6 +69,27 @@ public class MovieContentProvider extends ContentProvider {
                         null,
                         sortOrder);
                 break;
+
+            // Add a case to query for a single row of data by ID
+            // Use selections and selectionArgs to filter for that ID
+            case MOVIE_WITH_ID:
+                // Get the id from the URI
+                String id = uri.getPathSegments().get(1);
+
+                // Selection is the _ID column = ?, and the Selection args = the row ID from the URI
+                String mSelection = "_id=?";
+                String[] mSelectionArgs = new String[]{id};
+
+                // Construct a query as you would normally, passing in the selection/args
+                retCursor = db.query(TABLE_NAME,
+                        projection,
+                        mSelection,
+                        mSelectionArgs,
+                        null,
+                        null,
+                        sortOrder);
+                break;
+
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
@@ -94,8 +116,11 @@ public class MovieContentProvider extends ContentProvider {
         switch (match) {
             case MOVIES:
                 long id = db.insert(TABLE_NAME, null, contentValues); // will return -1 if not successful
+                Log.e(TAG, "db id: " + id);
+
                 if (id > 0) {
                     returnUri = ContentUris.withAppendedId(MovieContract.MovieEntry.CONTENT_URI, id);
+                    Log.e(TAG, "returnUri: " + returnUri);
                 } else {
                     throw new android.database.SQLException("Failed to insert row into " + uri);
                 }

@@ -41,11 +41,9 @@ public class FavoritesCursorAdapter extends RecyclerView.Adapter<FavoritesCursor
 
     @Override
     public void onBindViewHolder(MovieViewHolder holder, int position) {
-
-        mCursor.moveToPosition(position); // get to the right location in the cursor
+        mCursor.moveToPosition(position);
 
         int posterIndex = mCursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_NAME_POSTER);
-
         String poster = mCursor.getString(posterIndex);
 
         Picasso.with(holder.mPosterImageView.getContext())

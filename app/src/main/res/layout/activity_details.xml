@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#222233"
     android:layout_height="match_parent">
 
@@ -100,12 +101,15 @@
 
                     </LinearLayout>
 
-                    <Button
-                        android:id="@+id/btn_favorit"
+
+
+                    <com.like.LikeButton
+                        app:icon_type="heart"
+                        app:icon_size="25dp"
+                        android:id="@+id/star_button"
+                        android:onClick="onClickAddMovie"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="add"
-                        android:onClick="onClickAddMovie" />
+                        android:layout_height="wrap_content"/>
 
                 </LinearLayout>
             </LinearLayout>
