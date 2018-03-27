@@ -4,7 +4,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import app.example.db.movie.movieapp.R;
 import app.example.db.movie.movieapp.model.Movie;
+import app.example.db.movie.movieapp.model.Review;
 import app.example.db.movie.movieapp.model.Trailer;
 
 /**
@@ -23,6 +25,9 @@ public class JsonUtils {
 
     private static final String TRAILER_NAME = "name";
     private static final String TRAILER_KEY = "key";
+
+    private static final String REVIEW_AUTHOR = "author";
+    private static final String REVIEW_CONTENT = "content";
 
 
     public static Movie[] parseMovieJson(String json) throws JSONException {
@@ -63,5 +68,21 @@ public class JsonUtils {
         return trailerArray;
     }
 
+    public static Review[] parseReviewJson(String json) throws JSONException {
+
+        JSONObject reviewData = new JSONObject(json);
+        JSONArray JSONArray_Results = reviewData.getJSONArray(MOVIE_RESULTS);
+        Review[] reviewArray = new Review[JSONArray_Results.length()];
+        JSONObject jsonObject_result;
+
+        for (int i = 0; i < JSONArray_Results.length(); i++) {
+            jsonObject_result = JSONArray_Results.getJSONObject(i);
+            Review review = new Review();
+            review.setAuthor(jsonObject_result.optString(REVIEW_AUTHOR));
+            review.setContent(jsonObject_result.optString(REVIEW_CONTENT));
+            reviewArray[i] = review;
+        }
+        return reviewArray;
+    }
 
 }

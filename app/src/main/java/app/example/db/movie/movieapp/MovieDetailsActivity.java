@@ -30,7 +30,7 @@ import app.example.db.movie.movieapp.model.Trailer;
  * Created by Katy on 22.02.2018.
  */
 
-public class MovieDetailsActivity extends AppCompatActivity implements TrailerAdapter.TrailerAdapterOnClickHandler{
+public class MovieDetailsActivity extends AppCompatActivity implements TrailerAdapter.TrailerAdapterOnClickHandler {
     private static final String TAG = MovieDetailsActivity.class.getSimpleName();
 
     private static final String TRAILER = "videos";
@@ -161,8 +161,8 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
 
         mRecyclerView = findViewById(R.id.recyclerview_trailer);
 
-       GridLayoutManager manager = new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
-       mRecyclerView.setLayoutManager(manager);
+        GridLayoutManager manager = new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
+        mRecyclerView.setLayoutManager(manager);
 
 
         mRecyclerView.setHasFixedSize(true);
@@ -173,13 +173,12 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
         getTrailers();
 
 
-
     }
 
     public void getTrailers() {
 
 
-        Object trailers = new FetchTrailerData(mTrailerAdapter).execute(TRAILER,id);
+        Object trailers = new FetchTrailerData(mTrailerAdapter).execute(TRAILER, id);
 
 
         if (trailers != null) {
@@ -198,17 +197,16 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
     }
 
 
-
-    public void checkIfFavorite(){
+    public void checkIfFavorite() {
         Cursor mCursor = getContentResolver().query(MovieContract.MovieEntry.CONTENT_URI,
                 null,
                 null,
                 null,
                 MovieContract.MovieEntry.COLUMN_NAME_MOVIE_ID);
-        if (mCursor != null){
-            while (mCursor.moveToNext()){
+        if (mCursor != null) {
+            while (mCursor.moveToNext()) {
                 String movieId = mCursor.getString(1);
-                if(movieId.equals(id)){
+                if (movieId.equals(id)) {
                     setFavoriteFlag = true;
                 }
                 Log.e(TAG, "movieId: " + movieId);
@@ -221,13 +219,13 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
 
     @Override
     public void onClick(Trailer trailerItem) {
-      String key =  trailerItem.getKey();
+        String key = trailerItem.getKey();
         String trailerUrl = makeYoutubeUrl(key);
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(trailerUrl));
         startActivity(intent);
     }
 
-    private String makeYoutubeUrl(String trailerKey){
+    private String makeYoutubeUrl(String trailerKey) {
         String newU = "https://www.youtube.com/watch?v=" + trailerKey;
         Log.e(TAG, newU);
         return newU;

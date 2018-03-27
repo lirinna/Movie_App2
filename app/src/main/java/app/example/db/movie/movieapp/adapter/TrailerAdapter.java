@@ -22,16 +22,10 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerV
     private static final String TAG = TrailerAdapter.class.getSimpleName();
     private Trailer[] mTrailer;
 
-    /**
-     * An on-click handler that we've defined to make it easy for an Activity to interface with
-     * our RecyclerView
-     */
+
     private final TrailerAdapterOnClickHandler mClickHandler;
 
 
-    /**
-     * The interface that receives onClick messages.
-     */
     public interface TrailerAdapterOnClickHandler {
         void onClick(Trailer trailerItem);
     }
@@ -41,14 +35,13 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerV
     }
 
 
-
     public class TrailerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public ImageView mPosterImageView;
 
         public TrailerViewHolder(View view) {
             super(view);
-            mPosterImageView =  view.findViewById(R.id.iv_movie_trailer);
+            mPosterImageView = view.findViewById(R.id.iv_movie_trailer);
             view.setOnClickListener(this);
         }
 
@@ -59,9 +52,6 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerV
             mClickHandler.onClick(TrailerItem);
         }
     }
-
-
-    //TODO MAGE LAYOUT CHANGE!!!
 
     @Override
     public TrailerAdapter.TrailerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -75,11 +65,10 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerV
 
     @Override
     public void onBindViewHolder(TrailerAdapter.TrailerViewHolder holder, int position) {
-        String name= mTrailer[position].getName();
+        String name = mTrailer[position].getName();
         final String key = mTrailer[position].getKey();
 
-
-        String url = "https://img.youtube.com/vi/"+key+"/hqdefault.jpg";
+        String url = "https://img.youtube.com/vi/" + key + "/hqdefault.jpg";
 
         Picasso.with(holder.mPosterImageView.getContext())
                 .load(url)
@@ -90,12 +79,6 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerV
     }
 
 
-    /**
-     * This method simply returns the number of items to display. It is used behind the scenes
-     * to help layout our Views and for animations.
-     *
-     * @return The number of items available in our movie array
-     */
     @Override
     public int getItemCount() {
         if (null == mTrailer) return 0;
