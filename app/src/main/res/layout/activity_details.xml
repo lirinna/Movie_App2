@@ -126,17 +126,32 @@
                 android:paddingTop="5dp"
                 android:paddingRight="16dp" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#AACCFF"/>
+
+            <TextView
+                android:id="@+id/tv_trailer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Trailer"
+                android:paddingLeft="16dp"
+                android:textColor="#AACCFF"
+                android:paddingTop="5dp"
+                android:paddingRight="16dp" />
+
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:paddingTop="3dp"
-                android:orientation="vertical"
+                android:layout_width="wrap_content"
+
                 android:layout_height="wrap_content">
+
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerview_trailer"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 

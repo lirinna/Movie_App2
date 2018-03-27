@@ -1,6 +1,7 @@
 package app.example.db.movie.movieapp;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
@@ -159,8 +161,10 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
 
         mRecyclerView = findViewById(R.id.recyclerview_trailer);
 
-        GridLayoutManager manager = new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
-        mRecyclerView.setLayoutManager(manager);
+       GridLayoutManager manager = new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
+       mRecyclerView.setLayoutManager(manager);
+
+
         mRecyclerView.setHasFixedSize(true);
 
         mTrailerAdapter = new TrailerAdapter(this);
@@ -217,6 +221,15 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
 
     @Override
     public void onClick(Trailer trailerItem) {
+      String key =  trailerItem.getKey();
+        String trailerUrl = makeYoutubeUrl(key);
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(trailerUrl));
+        startActivity(intent);
+    }
 
+    private String makeYoutubeUrl(String trailerKey){
+        String newU = "https://www.youtube.com/watch?v=" + trailerKey;
+        Log.e(TAG, newU);
+        return newU;
     }
 }

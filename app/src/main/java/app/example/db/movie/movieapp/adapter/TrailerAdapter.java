@@ -78,7 +78,6 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerV
         String name= mTrailer[position].getName();
         final String key = mTrailer[position].getKey();
 
-        String trailerUrl = makeYoutubeUrl(key);
 
         String url = "https://img.youtube.com/vi/"+key+"/hqdefault.jpg";
 
@@ -88,12 +87,6 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerV
 
         Log.e(TAG, name);
         Log.e(TAG, key);
-    }
-
-    private String makeYoutubeUrl(String trailerKey){
-        String newU = "https://www.youtube.com/watch?v=" + trailerKey;
-        Log.e(TAG, newU);
-        return newU;
     }
 
 
