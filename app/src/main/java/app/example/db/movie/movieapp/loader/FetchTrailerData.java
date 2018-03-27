@@ -1,9 +1,12 @@
 package app.example.db.movie.movieapp.loader;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.net.URL;
 
+import app.example.db.movie.movieapp.MovieDetailsActivity;
+import app.example.db.movie.movieapp.adapter.TrailerAdapter;
 import app.example.db.movie.movieapp.model.Trailer;
 import app.example.db.movie.movieapp.utilities.JsonUtils;
 import app.example.db.movie.movieapp.utilities.NetworkUtils;
@@ -13,12 +16,13 @@ import app.example.db.movie.movieapp.utilities.NetworkUtils;
  */
 
 public class FetchTrailerData extends AsyncTask<String, Void, Trailer[]> {
-
+    private static final String TAG = FetchTrailerData.class.getSimpleName();
 
     private Trailer[] mTrailer = null;
+    private TrailerAdapter mTrailerAdapter;
 
-    public FetchTrailerData() {
-
+    public FetchTrailerData(TrailerAdapter adapter) {
+        this.mTrailerAdapter = adapter;
     }
 
     @Override
@@ -32,8 +36,12 @@ public class FetchTrailerData extends AsyncTask<String, Void, Trailer[]> {
         if (params.length == 0) {
             return null;
         }
-        String trailer = params[0];
-        URL trailerUrl = NetworkUtils.buildUrl(trailer);
+        String videos = params[0];
+        String id = params[1];
+        Log.e(TAG, "videos: " + videos);
+        Log.e(TAG, "id: " + id);
+
+        URL trailerUrl = NetworkUtils.buildUrlTrailer(videos,id);
 
         try {
             String jsonMovieResponse = NetworkUtils
@@ -50,6 +58,9 @@ public class FetchTrailerData extends AsyncTask<String, Void, Trailer[]> {
 
     @Override
     protected void onPostExecute(Trailer[] trailerData) {
+        if (trailerData != null) {
+            mTrailerAdapter.setTrailerData(trailerData);
+        }
 
     }
 

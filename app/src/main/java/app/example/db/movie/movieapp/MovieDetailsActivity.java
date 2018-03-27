@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -16,15 +18,20 @@ import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.squareup.picasso.Picasso;
 
+import app.example.db.movie.movieapp.adapter.TrailerAdapter;
 import app.example.db.movie.movieapp.data.MovieContract;
+import app.example.db.movie.movieapp.loader.FetchTrailerData;
 import app.example.db.movie.movieapp.model.Movie;
+import app.example.db.movie.movieapp.model.Trailer;
 
 /**
  * Created by Katy on 22.02.2018.
  */
 
-public class MovieDetailsActivity extends AppCompatActivity {
+public class MovieDetailsActivity extends AppCompatActivity implements TrailerAdapter.TrailerAdapterOnClickHandler{
     private static final String TAG = MovieDetailsActivity.class.getSimpleName();
+
+    private static final String TRAILER = "videos";
 
     String id;
     String title;
@@ -35,6 +42,9 @@ public class MovieDetailsActivity extends AppCompatActivity {
     LikeButton likeButton;
     private boolean setFavoriteFlag = false;
 
+    private TrailerAdapter mTrailerAdapter;
+    private RecyclerView mRecyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +53,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
         likeButton = findViewById(R.id.star_button);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        mTrailerAdapter = new TrailerAdapter(this);
 
         Movie movieObject = getIntent().getParcelableExtra("movieObject");
         if (movieObject != null) {
@@ -144,6 +156,31 @@ public class MovieDetailsActivity extends AppCompatActivity {
             }
         });
 
+
+        mRecyclerView = findViewById(R.id.recyclerview_trailer);
+
+        GridLayoutManager manager = new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
+        mRecyclerView.setLayoutManager(manager);
+        mRecyclerView.setHasFixedSize(true);
+
+        mTrailerAdapter = new TrailerAdapter(this);
+        mRecyclerView.setAdapter(mTrailerAdapter);
+
+        getTrailers();
+
+
+
+    }
+
+    public void getTrailers() {
+
+
+        Object trailers = new FetchTrailerData(mTrailerAdapter).execute(TRAILER,id);
+
+
+        if (trailers != null) {
+            Log.e(TAG, "trailers: " + trailers.toString());
+        }
     }
 
     @Override
@@ -178,4 +215,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onClick(Trailer trailerItem) {
+
+    }
 }
