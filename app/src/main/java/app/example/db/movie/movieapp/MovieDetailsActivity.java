@@ -20,10 +20,13 @@ import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.squareup.picasso.Picasso;
 
+import app.example.db.movie.movieapp.adapter.ReviewAdapter;
 import app.example.db.movie.movieapp.adapter.TrailerAdapter;
 import app.example.db.movie.movieapp.data.MovieContract;
+import app.example.db.movie.movieapp.loader.FetchReviewData;
 import app.example.db.movie.movieapp.loader.FetchTrailerData;
 import app.example.db.movie.movieapp.model.Movie;
+import app.example.db.movie.movieapp.model.Review;
 import app.example.db.movie.movieapp.model.Trailer;
 
 /**
@@ -34,6 +37,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
     private static final String TAG = MovieDetailsActivity.class.getSimpleName();
 
     private static final String TRAILER = "videos";
+    private static final String REVIEW = "reviews";
 
     String id;
     String title;
@@ -45,7 +49,10 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
     private boolean setFavoriteFlag = false;
 
     private TrailerAdapter mTrailerAdapter;
+    private ReviewAdapter mReviewAdapter;
+
     private RecyclerView mRecyclerView;
+    private RecyclerView mRecyclerViewReview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +64,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mTrailerAdapter = new TrailerAdapter(this);
+        mReviewAdapter = new ReviewAdapter();
 
         Movie movieObject = getIntent().getParcelableExtra("movieObject");
         if (movieObject != null) {
@@ -160,31 +168,41 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
 
 
         mRecyclerView = findViewById(R.id.recyclerview_trailer);
+        mRecyclerViewReview = findViewById(R.id.recyclerview_review);
 
         GridLayoutManager manager = new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
+        GridLayoutManager manager2 = new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(manager);
-
+        mRecyclerViewReview.setLayoutManager(manager2);
 
         mRecyclerView.setHasFixedSize(true);
 
-        mTrailerAdapter = new TrailerAdapter(this);
+
         mRecyclerView.setAdapter(mTrailerAdapter);
+        mRecyclerViewReview.setAdapter(mReviewAdapter);
 
         getTrailers();
+        getReviews();
 
 
     }
 
     public void getTrailers() {
-
-
         Object trailers = new FetchTrailerData(mTrailerAdapter).execute(TRAILER, id);
-
 
         if (trailers != null) {
             Log.e(TAG, "trailers: " + trailers.toString());
         }
     }
+
+    public void getReviews() {
+        Object reviews = new FetchReviewData(mReviewAdapter).execute(REVIEW, id);
+
+        if (reviews != null) {
+            Log.e(TAG, "reviews: " + reviews.toString());
+        }
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -223,6 +241,8 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
         String trailerUrl = makeYoutubeUrl(key);
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(trailerUrl));
         startActivity(intent);
+
+        Log.e(TAG, "onClick für Trailer");
     }
 
     private String makeYoutubeUrl(String trailerKey) {
@@ -230,4 +250,6 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
         Log.e(TAG, newU);
         return newU;
     }
+
+
 }

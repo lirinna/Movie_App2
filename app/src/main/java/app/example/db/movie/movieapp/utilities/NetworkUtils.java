@@ -61,6 +61,22 @@ public class NetworkUtils {
         return url;
     }
 
+    public static URL buildUrlReview(String id, String trailer) {
+        Uri builtUri = Uri.parse(MOVIEDB_BASE_URL).buildUpon().appendPath(trailer).appendPath(id)
+                .appendQueryParameter(API_KEY_QUERY_PARAMETER, API_KEY)
+                .build();
+
+        URL url = null;
+        try {
+            url = new URL(builtUri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        Log.e(TAG, "Built Review URI " + url);
+
+        return url;
+    }
 
     public static String getResponseFromHttpUrl(URL url) throws IOException {
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
