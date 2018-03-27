@@ -5,6 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import app.example.db.movie.movieapp.model.Movie;
+import app.example.db.movie.movieapp.model.Trailer;
 
 /**
  * Created by Katy on 22.02.2018.
@@ -19,6 +20,10 @@ public class JsonUtils {
     private static final String MOVIE_VOTE_AVERAGE = "vote_average";
     private static final String MOVIE_RELEASE_DATE = "release_date";
     private static final String MOVIE_RESULTS = "results";
+
+    private static final String TRAILER_NAME = "name";
+    private static final String TRAILER_KEY = "key";
+
 
     public static Movie[] parseMovieJson(String json) throws JSONException {
 
@@ -40,5 +45,23 @@ public class JsonUtils {
         }
         return movieArray;
     }
+
+    public static Trailer[] parseTrailerJson(String json) throws JSONException {
+
+        JSONObject trailerData = new JSONObject(json);
+        JSONArray JSONArray_Results = trailerData.getJSONArray(MOVIE_RESULTS);
+        Trailer[] trailerArray = new Trailer[JSONArray_Results.length()];
+        JSONObject jsonObject_result;
+
+        for (int i = 0; i < JSONArray_Results.length(); i++) {
+            jsonObject_result = JSONArray_Results.getJSONObject(i);
+            Trailer trailer = new Trailer();
+            trailer.setKey(jsonObject_result.optString(TRAILER_KEY));
+            trailer.setName(jsonObject_result.optString(TRAILER_NAME));
+            trailerArray[i] = trailer;
+        }
+        return trailerArray;
+    }
+
 
 }
