@@ -25,15 +25,13 @@
                     android:layout_height="match_parent"
                     android:contentDescription="@string/image_poster"
                     android:paddingTop="100dp"
-                    android:scaleType="centerCrop"
-
-                    />
+                    android:scaleType="centerCrop"/>
 
                 <TextView
                     android:id="@+id/details_titleN"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="350dp"
+                    android:layout_marginTop="230dp"
                     android:hint="@string/title"
                     android:paddingLeft="20dp"
                     android:textColor="#ffffff"
@@ -46,8 +44,8 @@
                     style="?android:attr/ratingBarStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="150dp"
-                    android:layout_marginTop="310dp"
+                    android:layout_marginLeft="190dp"
+                    android:layout_marginTop="170dp"
                     android:isIndicator="true"
                     android:numStars="5"
                     android:progressBackgroundTint="@android:color/white"
@@ -60,8 +58,8 @@
                     style="?android:attr/ratingBarStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="150dp"
-                    android:layout_marginTop="310dp"
+                    android:layout_marginLeft="190dp"
+                    android:layout_marginTop="170dp"
                     android:isIndicator="true"
                     android:numStars="5"
                     android:progressBackgroundTint="#F6C40A"
@@ -74,35 +72,19 @@
                     android:id="@+id/details_vote_averageN"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="250dp"
-                    android:layout_marginTop="300dp"
+                    android:layout_marginLeft="290dp"
+                    android:layout_marginTop="140dp"
                     android:fontFamily="sans-serif-light"
                     android:hint="@string/_7_7"
                     android:textColor="#ffffff"
-                    android:textSize="40sp" />
-
-
-                <TextView
-                    android:id="@+id/details_dateN"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="320dp"
-                    android:background="@drawable/round"
-                    android:gravity="center"
-                    android:hint="2016"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:textColor="@color/backgroundColor"
-                    android:textSize="13sp" />
+                    android:textSize="63sp" />
 
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="150dp"
-                    android:layout_marginTop="330dp"
+                    android:layout_marginLeft="190dp"
+                    android:layout_marginTop="190dp"
                     android:orientation="horizontal">
 
 
@@ -124,6 +106,22 @@
                         android:textColor="@color/hellgrau"
                         android:textStyle="bold" />
                 </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/details_dateN"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="180dp"
+                    android:background="@drawable/round"
+                    android:gravity="center"
+                    android:hint="2016"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:textColor="@color/backgroundColor"
+                    android:textSize="13sp" />
 
             </RelativeLayout>
 
@@ -163,14 +161,13 @@
                 android:id="@+id/details_overview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:hint="@string/overview_text"
                 android:layout_gravity="fill"
-                android:paddingLeft="16dp"
+                android:layout_marginBottom="10dp"
                 android:layout_marginRight="16dp"
+                android:hint="@string/overview_text"
+                android:paddingLeft="16dp"
                 android:paddingTop="5dp"
                 android:textColor="#ffffff" />
-
 
 
             <!-- Trailer -->
@@ -186,10 +183,10 @@
                     android:id="@+id/tv_trailer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"
                     android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
                     android:text="TRAILER"
                     android:textColor="@color/hellgrau" />
 
@@ -202,8 +199,8 @@
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recyclerview_trailer"
                         android:layout_width="wrap_content"
-                        android:paddingBottom="10dp"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="10dp" />
 
                 </LinearLayout>
             </LinearLayout>

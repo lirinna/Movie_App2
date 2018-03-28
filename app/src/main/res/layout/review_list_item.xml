@@ -4,9 +4,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="3dp"
+    android:animateLayoutChanges="true"
     android:orientation="vertical">
-
-
 
    <TextView
        android:layout_width="wrap_content"
@@ -26,14 +25,7 @@
        android:ellipsize="end"
        android:paddingLeft="16dp"
        android:paddingRight="16dp"
-       android:maxLines="5"
+       android:maxLines="2"
        android:id="@+id/tv_review_content"/>
-
-   <TextView
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:textColor="#ffffff"
-       android:text="Read more"
-       android:id="@+id/tv_read_more"/>
 
 </LinearLayout>

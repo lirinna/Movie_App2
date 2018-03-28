@@ -15,7 +15,6 @@ import app.example.db.movie.movieapp.R;
 import app.example.db.movie.movieapp.model.Review;
 
 
-
 /**
  * Created by Katy on 27.03.2018.
  */
@@ -26,23 +25,29 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
     private Review[] mReview;
     private TextView mAuthor;
     private TextView mContent;
-    private TextView mMoreText;
 
-    Boolean expandable = false;
+    private final ReviewAdapterOnClickHandler mClickHandler;
 
+    private int mExpandedPosition = -1;
+    private int previousExpandedPosition = -1;
 
-    public ReviewAdapter() {
-
+    public interface ReviewAdapterOnClickHandler {
+        void onClick(Review reviewItem);
     }
 
-    public class ReviewViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener   {
+    public ReviewAdapter(ReviewAdapterOnClickHandler clickHandler) {
+        mClickHandler = clickHandler;
+    }
+
+    public class ReviewViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
 
         public ReviewViewHolder(View view) {
             super(view);
             mAuthor = view.findViewById(R.id.tv_review_author);
             mContent = view.findViewById(R.id.tv_review_content);
-            mMoreText = view.findViewById(R.id.tv_read_more);
+            //  mMoreText = view.findViewById(R.id.tv_read_more);
+            view.setOnClickListener(this);
 
         }
 
@@ -51,7 +56,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         public void onClick(View view) {
             int adapterPosition = getAdapterPosition();
             Review reviewItem = mReview[adapterPosition];
-
+            mClickHandler.onClick(reviewItem);
         }
     }
 
@@ -67,7 +72,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
 
 
     @Override
-    public void onBindViewHolder(ReviewViewHolder holder, int position) {
+    public void onBindViewHolder(ReviewViewHolder holder, final int position) {
         String author = mReview[position].getAuthor();
         String content = mReview[position].getContent();
 
@@ -75,10 +80,26 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         mContent.setText(content);
 
 
+        // https://stackoverflow.com/questions/27203817/recyclerview-expand-collapse-items/27205234#27205234
+        final boolean isExpanded = position == mExpandedPosition;
+        mContent.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
+        holder.itemView.setActivated(isExpanded);
+
+        if (isExpanded)
+            previousExpandedPosition = position;
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mExpandedPosition = isExpanded ? -1 : position;
+                notifyItemChanged(previousExpandedPosition);
+                notifyItemChanged(position);
+            }
+        });
+
         Log.e(TAG, "author: " + author);
         Log.e(TAG, "content: " + content);
     }
-
 
 
     @Override

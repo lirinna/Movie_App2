@@ -37,7 +37,7 @@ import app.example.db.movie.movieapp.model.Trailer;
  * Created by Katy on 22.02.2018.
  */
 
-public class MovieDetailsActivity extends AppCompatActivity implements TrailerAdapter.TrailerAdapterOnClickHandler {
+public class MovieDetailsActivity extends AppCompatActivity implements TrailerAdapter.TrailerAdapterOnClickHandler,ReviewAdapter.ReviewAdapterOnClickHandler {
     private static final String TAG = MovieDetailsActivity.class.getSimpleName();
 
     private static final String TRAILER = "videos";
@@ -74,7 +74,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
 
 
         mTrailerAdapter = new TrailerAdapter(this);
-        mReviewAdapter = new ReviewAdapter();
+        mReviewAdapter = new ReviewAdapter(this);
 
 
         Movie movieObject = getIntent().getParcelableExtra("movieObject");
@@ -295,6 +295,8 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
 
     }
 
+
+
     @Override
     public void onClick(Trailer trailerItem) {
         String key = trailerItem.getKey();
@@ -311,8 +313,16 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
         return newU;
     }
 
+    @Override
+    public void onClick(Review reviewItem) {
+        Log.e(TAG, "onClick für REview");
+      String author =  reviewItem.getAuthor();
+        Log.e(TAG, "onClick für REview" +author);
+
+        reviewItem.getContent();
 
 
 
+    }
 
 }
