@@ -5,7 +5,8 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="backgroundColor">#222233</color>
-    <color name="TrailerBackgroundColor">#4e4e5b</color>
+    <color name="TrailerBackgroundColor">#383847</color>
+    <color name="TrailerBackgroundColor2">#1e1e2d</color>
 
     <color name="white">#ffffff</color>
     <color name="yellow2">#F6C40A</color>

@@ -33,9 +33,9 @@
                     android:id="@+id/details_titleN"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="290dp"
                     android:hint="@string/title"
                     android:paddingLeft="20dp"
-                    android:layout_marginTop="300dp"
                     android:textColor="#ffffff"
                     android:textSize="25sp"
                     android:textStyle="bold" />
@@ -72,30 +72,30 @@
 
                 <TextView
                     android:id="@+id/details_vote_averageN"
-                    android:layout_marginLeft="260dp"
-                    android:layout_marginTop="220dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="63sp"
+                    android:layout_marginLeft="260dp"
+                    android:layout_marginTop="220dp"
                     android:fontFamily="sans-serif-light"
                     android:hint="@string/_7_7"
-                    android:textColor="#ffffff" />
+                    android:textColor="#ffffff"
+                    android:textSize="63sp" />
 
 
                 <TextView
                     android:id="@+id/details_dateN"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="2016"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="260dp"
+                    android:background="@drawable/round"
+                    android:gravity="center"
+                    android:hint="2016"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="center"
-                    android:textSize="13sp"
-                    android:background="@drawable/round"
-                    android:textColor="@color/backgroundColor" />
+                    android:textColor="@color/backgroundColor"
+                    android:textSize="13sp" />
 
 
                 <LinearLayout
@@ -106,14 +106,14 @@
                     android:orientation="horizontal">
 
 
-                <TextView
-                    android:id="@+id/votes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="1111"
-                    android:paddingRight="5dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/hellgrau" />
+                    <TextView
+                        android:id="@+id/votes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="1111"
+                        android:paddingRight="5dp"
+                        android:textColor="@color/hellgrau"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -121,8 +121,8 @@
                         android:layout_marginEnd="10dp"
                         android:layout_marginRight="10dp"
                         android:text="VOTES"
-                        android:textStyle="bold"
-                        android:textColor="@color/hellgrau" />
+                        android:textColor="@color/hellgrau"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
             </RelativeLayout>
@@ -138,71 +138,77 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
+                <com.like.LikeButton
+                    android:id="@+id/star_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="onClickAddMovie"
+                    app:icon_size="25dp"
+                    app:icon_type="heart" />
 
-                    <com.like.LikeButton
-                        android:id="@+id/star_button"
+            </LinearLayout>
 
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:onClick="onClickAddMovie"
-                        app:icon_size="25dp"
-                        app:icon_type="heart" />
-
-                </LinearLayout>
-
+            <!-- Overview -->
             <TextView
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="OVERVIEW"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 android:paddingTop="5dp"
+                android:text="OVERVIEW"
                 android:textColor="@color/hellgrau" />
 
             <TextView
                 android:id="@+id/details_overview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="@string/overview_text"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:paddingTop="5dp"
                 android:layout_marginBottom="10dp"
+                android:hint="@string/overview_text"
+                android:layout_gravity="fill"
+                android:paddingLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:paddingTop="5dp"
                 android:textColor="#ffffff" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#AACCFF" />
 
-            <TextView
-                android:id="@+id/tv_trailer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:paddingTop="5dp"
-                android:text="Trailer"
-                android:textColor="#AACCFF" />
 
+            <!-- Trailer -->
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
 
+                android:background="@color/TrailerBackgroundColor"
+                android:orientation="vertical">
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recyclerview_trailer"
+                <TextView
+                    android:id="@+id/tv_trailer"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:text="TRAILER"
+                    android:textColor="@color/hellgrau" />
 
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerview_trailer"
+                        android:layout_width="wrap_content"
+                        android:paddingBottom="10dp"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#AACCFF" />
+            <!-- Review -->
 
             <TextView
                 android:id="@+id/tv_review"
@@ -211,20 +217,23 @@
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 android:paddingTop="5dp"
-                android:text="Review"
-                android:textColor="#AACCFF" />
+                android:text="REVIEW"
+                android:textColor="@color/hellgrau" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
+
                 android:layout_height="wrap_content">
 
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerview_review"
                     android:layout_width="wrap_content"
+
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
+
 
         </LinearLayout>
 

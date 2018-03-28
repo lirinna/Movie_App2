@@ -1,19 +1,20 @@
 package app.example.db.movie.movieapp.adapter;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
 
 import app.example.db.movie.movieapp.R;
 import app.example.db.movie.movieapp.model.Review;
-import app.example.db.movie.movieapp.model.Trailer;
+
+
 
 /**
  * Created by Katy on 27.03.2018.
@@ -25,24 +26,33 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
     private Review[] mReview;
     private TextView mAuthor;
     private TextView mContent;
+    private TextView mMoreText;
+
+    Boolean expandable = false;
 
 
     public ReviewAdapter() {
 
     }
 
-
-    public class ReviewViewHolder extends RecyclerView.ViewHolder {
+    public class ReviewViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener   {
 
 
         public ReviewViewHolder(View view) {
             super(view);
             mAuthor = view.findViewById(R.id.tv_review_author);
             mContent = view.findViewById(R.id.tv_review_content);
+            mMoreText = view.findViewById(R.id.tv_read_more);
 
         }
 
 
+        @Override
+        public void onClick(View view) {
+            int adapterPosition = getAdapterPosition();
+            Review reviewItem = mReview[adapterPosition];
+
+        }
     }
 
     @Override
@@ -64,9 +74,11 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         mAuthor.setText(author);
         mContent.setText(content);
 
+
         Log.e(TAG, "author: " + author);
         Log.e(TAG, "content: " + content);
     }
+
 
 
     @Override

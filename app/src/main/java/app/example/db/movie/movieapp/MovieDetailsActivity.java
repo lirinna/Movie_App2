@@ -1,43 +1,28 @@
 package app.example.db.movie.movieapp;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.Matrix;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.NavUtils;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import app.example.db.movie.movieapp.adapter.ReviewAdapter;
 import app.example.db.movie.movieapp.adapter.TrailerAdapter;
@@ -71,8 +56,9 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
     private TrailerAdapter mTrailerAdapter;
     private ReviewAdapter mReviewAdapter;
 
-    private RecyclerView mRecyclerView;
+    private RecyclerView mRecyclerViewTrailer;
     private RecyclerView mRecyclerViewReview;
+
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
@@ -82,11 +68,14 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
 
         likeButton = findViewById(R.id.star_button);
 
-    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
 
 
         mTrailerAdapter = new TrailerAdapter(this);
         mReviewAdapter = new ReviewAdapter();
+
 
         Movie movieObject = getIntent().getParcelableExtra("movieObject");
         if (movieObject != null) {
@@ -99,14 +88,16 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
             vote_average = movieObject.getVoteAverage();
             overview = movieObject.getOverview();
 
-            Log.d(TAG, id);
-            Log.d(TAG, votes);
-            Log.d(TAG, title);
-            Log.d(TAG, date);
-            Log.d(TAG, poster);
-            Log.d(TAG, vote_average);
-            Log.d(TAG, overview);
 
+
+            Log.e(TAG, "id "+ id);
+            if (votes != null)
+            Log.e(TAG, "votes: "+ votes);
+            Log.e(TAG,"title: "+ title);
+            Log.e(TAG,"date: "+ date);
+            Log.e(TAG, "poster: "+poster);
+            Log.e(TAG, "vote_average: "+vote_average);
+            Log.e(TAG, "overview: "+overview);
 
 
             TextView textView_titleN = findViewById(R.id.details_titleN);
@@ -120,7 +111,6 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
             imageView_posterN.setAlpha(0.5f);
 
 
-
             // Date
             String CurrentString = date;
             String[] separated = CurrentString.split("-");
@@ -130,11 +120,8 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
             textView_dateN.setText(first);
 
 
-
-
             TextView textView_vote_averageN = findViewById(R.id.details_vote_averageN);
             textView_vote_averageN.setText(vote_average);
-
 
 
             RatingBar mRatingBar = findViewById(R.id.rating);
@@ -148,11 +135,6 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
 
             mRatingBar.setRating(newValue);
 
-
-            /*LayerDrawable stars = (LayerDrawable) mRatingBar2.getProgressDrawable();
-            stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
-            stars.getDrawable(0).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
-            stars.getDrawable(1).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);*/
             mRatingBar2.setRating(5);
 
 
@@ -179,7 +161,10 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
 
                 ContentValues contentValues = new ContentValues();
 
+                Log.e(TAG, "ID IN LIKEBUTTON: " + id);
+
                 contentValues.put(MovieContract.MovieEntry.COLUMN_NAME_MOVIE_ID, id);
+                contentValues.put(MovieContract.MovieEntry.COLUMN_NAME_VOTES, votes);
                 contentValues.put(MovieContract.MovieEntry.COLUMN_NAME_TITLE, title);
                 contentValues.put(MovieContract.MovieEntry.COLUMN_NAME_OVERVIEW, overview);
                 contentValues.put(MovieContract.MovieEntry.COLUMN_NAME_POSTER, poster);
@@ -197,6 +182,8 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
             public void unLiked(LikeButton likeButton) {
 
                 Cursor result = getContentResolver().query(MovieContract.MovieEntry.CONTENT_URI, null, MovieContract.MovieEntry.COLUMN_NAME_MOVIE_ID + " = ?", new String[]{id}, null);
+
+                assert result != null;
                 int idIndex = result.getColumnIndex(MovieContract.MovieEntry._ID);
 
                 int MovieIndex = result.getColumnIndex(MovieContract.MovieEntry.COLUMN_NAME_MOVIE_ID);
@@ -229,18 +216,18 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
         });
 
 
-        mRecyclerView = findViewById(R.id.recyclerview_trailer);
+        mRecyclerViewTrailer = findViewById(R.id.recyclerview_trailer);
         mRecyclerViewReview = findViewById(R.id.recyclerview_review);
 
-        GridLayoutManager manager = new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
-        GridLayoutManager manager2 = new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false);
-        mRecyclerView.setLayoutManager(manager);
-        mRecyclerViewReview.setLayoutManager(manager2);
+        GridLayoutManager trailerGridManager = new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false);
+        GridLayoutManager reviewGridManager = new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false);
+        mRecyclerViewTrailer.setLayoutManager(trailerGridManager);
+        mRecyclerViewReview.setLayoutManager(reviewGridManager);
 
-        mRecyclerView.setHasFixedSize(true);
+       // mRecyclerViewTrailer.setHasFixedSize(true);
 
 
-        mRecyclerView.setAdapter(mTrailerAdapter);
+        mRecyclerViewTrailer.setAdapter(mTrailerAdapter);
         mRecyclerViewReview.setAdapter(mReviewAdapter);
 
         getTrailers();
@@ -249,15 +236,18 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
 
     }
 
+
     private float calculateRating(float number) {
         float calculated;
         float first = (number / 10);
-        calculated = (first*5);
+        calculated = (first * 5);
         return calculated;
     }
 
 
     public void getTrailers() {
+
+        Log.e(TAG, "id in TRAILERS: " + id);
         Object trailers = new FetchTrailerData(mTrailerAdapter).execute(TRAILER, id);
 
         if (trailers != null) {
@@ -320,6 +310,9 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
         Log.e(TAG, newU);
         return newU;
     }
+
+
+
 
 
 }

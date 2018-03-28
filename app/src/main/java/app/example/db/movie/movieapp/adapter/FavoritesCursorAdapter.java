@@ -112,6 +112,8 @@ public class FavoritesCursorAdapter extends RecyclerView.Adapter<FavoritesCursor
             String releaseDate = mCursor.getString(releaseDateIndex);
             String voteAverage = mCursor.getString(voteAverageIndex);
 
+            Log.e(TAG,"ID "+ id);
+
             Movie movieItem = new Movie(id, votes, title, overview, poster, releaseDate, voteAverage);
 
             Intent intent = new Intent(view.getContext(), MovieDetailsActivity.class);
