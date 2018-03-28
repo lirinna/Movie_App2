@@ -5,7 +5,6 @@ import android.util.Log;
 
 import java.net.URL;
 
-import app.example.db.movie.movieapp.MovieDetailsActivity;
 import app.example.db.movie.movieapp.adapter.TrailerAdapter;
 import app.example.db.movie.movieapp.model.Trailer;
 import app.example.db.movie.movieapp.utilities.JsonUtils;

@@ -1,4 +1,4 @@
-package app.example.db.movie.movieapp;
+package app.example.db.movie.movieapp.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import app.example.db.movie.movieapp.R;
 import app.example.db.movie.movieapp.adapter.FavoritesCursorAdapter;
 import app.example.db.movie.movieapp.adapter.MovieAdapter;
 import app.example.db.movie.movieapp.loader.FavoriteMovieLoader;

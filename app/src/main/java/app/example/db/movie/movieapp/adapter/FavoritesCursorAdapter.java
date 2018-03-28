@@ -12,7 +12,7 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
-import app.example.db.movie.movieapp.MovieDetailsActivity;
+import app.example.db.movie.movieapp.ui.MovieDetailsActivity;
 import app.example.db.movie.movieapp.R;
 import app.example.db.movie.movieapp.data.MovieContract;
 import app.example.db.movie.movieapp.model.Movie;

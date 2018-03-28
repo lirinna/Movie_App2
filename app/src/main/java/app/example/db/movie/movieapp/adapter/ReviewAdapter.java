@@ -79,7 +79,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         mAuthor.setText(author);
         mContent.setText(content);
 
-
+/*
         // https://stackoverflow.com/questions/27203817/recyclerview-expand-collapse-items/27205234#27205234
         final boolean isExpanded = position == mExpandedPosition;
         mContent.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
@@ -96,7 +96,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
                 notifyItemChanged(position);
             }
         });
-
+*/
         Log.e(TAG, "author: " + author);
         Log.e(TAG, "content: " + content);
     }

@@ -1,4 +1,4 @@
-package app.example.db.movie.movieapp;
+package app.example.db.movie.movieapp.ui;
 
 import android.content.ContentValues;
 import android.content.Intent;
@@ -14,8 +14,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -24,6 +22,7 @@ import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.squareup.picasso.Picasso;
 
+import app.example.db.movie.movieapp.R;
 import app.example.db.movie.movieapp.adapter.ReviewAdapter;
 import app.example.db.movie.movieapp.adapter.TrailerAdapter;
 import app.example.db.movie.movieapp.data.MovieContract;
@@ -88,17 +87,13 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
             vote_average = movieObject.getVoteAverage();
             overview = movieObject.getOverview();
 
-
-
             Log.e(TAG, "id "+ id);
-            if (votes != null)
             Log.e(TAG, "votes: "+ votes);
             Log.e(TAG,"title: "+ title);
             Log.e(TAG,"date: "+ date);
             Log.e(TAG, "poster: "+poster);
             Log.e(TAG, "vote_average: "+vote_average);
             Log.e(TAG, "overview: "+overview);
-
 
             TextView textView_titleN = findViewById(R.id.details_titleN);
             textView_titleN.setText(title);
@@ -320,6 +315,10 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
         Log.e(TAG, "onClick für REview" +author);
 
         reviewItem.getContent();
+
+        Intent intent = new Intent(this, ReviewDetails.class);
+        intent.putExtra("reviewObject", reviewItem);
+        startActivity(intent);
 
 
 
