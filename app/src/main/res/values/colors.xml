@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#4527A0</color>
-    <color name="colorPrimaryDark">#311B92</color>
+    <color name="colorPrimary">#222233</color>
+    <color name="colorPrimaryDark">#222233</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="backgroundColor">#222233</color>
+    <color name="TrailerBackgroundColor">#4e4e5b</color>
+
+    <color name="white">#ffffff</color>
+    <color name="yellow2">#F6C40A</color>
+    <color name="grau">#959EB1</color>
+    <color name="hellgrau">#b7c0ca</color>
+    <color name="hellblau">#AACCFF</color>
+
+
+
+
 </resources>

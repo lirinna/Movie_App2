@@ -21,6 +21,7 @@ public class JsonUtils {
     private static final String MOVIE_OVERVIEW = "overview";
     private static final String MOVIE_VOTE_AVERAGE = "vote_average";
     private static final String MOVIE_RELEASE_DATE = "release_date";
+    private static final String MOVIE_VOTES = "vote_count";
     private static final String MOVIE_RESULTS = "results";
 
     private static final String TRAILER_NAME = "name";
@@ -41,6 +42,7 @@ public class JsonUtils {
             jsonObject_result = JSONArray_Results.getJSONObject(i);
             Movie movie = new Movie();
             movie.setId(jsonObject_result.optString(MOVIE_ID));
+            movie.setVotes(jsonObject_result.optString(MOVIE_VOTES));
             movie.setTitle(jsonObject_result.optString(MOVIE_TITLE));
             movie.setPosterPath(jsonObject_result.optString(MOVIE_POSTER_PATH));
             movie.setOverview(jsonObject_result.optString(MOVIE_OVERVIEW));

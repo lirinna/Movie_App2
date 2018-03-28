@@ -22,7 +22,8 @@ public class MovieContract {
         public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_MOVIES).build();
 
         public static final String TABLE_NAME = "movies";
-        public static final String COLUMN_NAME_MOVIE_ID = "movie_id"; // delete
+        public static final String COLUMN_NAME_MOVIE_ID = "movie_id";
+        public static final String COLUMN_NAME_VOTES = "vote_count";
         public static final String COLUMN_NAME_TITLE = "title";
         public static final String COLUMN_NAME_OVERVIEW = "overview";
         public static final String COLUMN_NAME_POSTER = "poster";

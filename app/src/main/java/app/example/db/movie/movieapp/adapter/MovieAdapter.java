@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
@@ -48,6 +49,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
      */
     public class MovieAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public ImageView mPosterImageView;
+
 
         public MovieAdapterViewHolder(View view) {
             super(view);

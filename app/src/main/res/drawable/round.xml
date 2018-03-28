@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--https://stackoverflow.com/questions/34441442/android-rounded-corner-textview-with-perfect-round-in-the-corner -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#F6C40A" />
+    <corners android:radius="60dp" />
+</shape>

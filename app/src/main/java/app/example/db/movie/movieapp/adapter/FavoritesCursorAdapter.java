@@ -97,6 +97,7 @@ public class FavoritesCursorAdapter extends RecyclerView.Adapter<FavoritesCursor
             mCursor.moveToPosition(adapterPosition);
 
             int idIndex = mCursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_NAME_MOVIE_ID);
+            int votesIndex = mCursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_NAME_VOTES);
             int titleIndex = mCursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_NAME_TITLE);
             int overviewIndex = mCursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_NAME_OVERVIEW);
             int posterIndex = mCursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_NAME_POSTER);
@@ -104,13 +105,14 @@ public class FavoritesCursorAdapter extends RecyclerView.Adapter<FavoritesCursor
             int voteAverageIndex = mCursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_NAME_VOTE_AVERAGE);
 
             String id = mCursor.getString(idIndex);
+            String votes = mCursor.getString(votesIndex);
             String title = mCursor.getString(titleIndex);
             String overview = mCursor.getString(overviewIndex);
             String poster = mCursor.getString(posterIndex);
             String releaseDate = mCursor.getString(releaseDateIndex);
             String voteAverage = mCursor.getString(voteAverageIndex);
 
-            Movie movieItem = new Movie(id, title, overview, poster, releaseDate, voteAverage);
+            Movie movieItem = new Movie(id, votes, title, overview, poster, releaseDate, voteAverage);
 
             Intent intent = new Intent(view.getContext(), MovieDetailsActivity.class);
             intent.putExtra("movieObject", movieItem);

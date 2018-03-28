@@ -1,11 +1,26 @@
 package app.example.db.movie.movieapp;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.NavUtils;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 
 import android.support.v7.widget.GridLayoutManager;
@@ -13,12 +28,16 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import app.example.db.movie.movieapp.adapter.ReviewAdapter;
 import app.example.db.movie.movieapp.adapter.TrailerAdapter;
@@ -40,6 +59,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
     private static final String REVIEW = "reviews";
 
     String id;
+    String votes;
     String title;
     String date;
     String poster;
@@ -54,6 +74,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
     private RecyclerView mRecyclerView;
     private RecyclerView mRecyclerViewReview;
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +82,8 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
 
         likeButton = findViewById(R.id.star_button);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         mTrailerAdapter = new TrailerAdapter(this);
         mReviewAdapter = new ReviewAdapter();
@@ -70,6 +92,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
         if (movieObject != null) {
 
             id = movieObject.getId();
+            votes = movieObject.getVotes();
             title = movieObject.getTitle();
             date = movieObject.getReleaseDate();
             poster = movieObject.getPosterPath();
@@ -77,25 +100,64 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
             overview = movieObject.getOverview();
 
             Log.d(TAG, id);
+            Log.d(TAG, votes);
             Log.d(TAG, title);
             Log.d(TAG, date);
             Log.d(TAG, poster);
             Log.d(TAG, vote_average);
             Log.d(TAG, overview);
 
-            TextView textView_title = findViewById(R.id.details_title);
-            textView_title.setText(title);
 
-            TextView textView_date = findViewById(R.id.details_date);
-            textView_date.setText(date);
 
-            ImageView imageView_poster = findViewById(R.id.details_poster);
+            TextView textView_titleN = findViewById(R.id.details_titleN);
+            textView_titleN.setText(title);
+
+            ImageView imageView_posterN = findViewById(R.id.details_posterN);
             Picasso.with(this)
-                    .load("http://image.tmdb.org/t/p/w300".concat(poster))
-                    .into(imageView_poster);
+                    .load("http://image.tmdb.org/t/p/w342".concat(poster))
+                    .into(imageView_posterN);
 
-            TextView textView_vote_average = findViewById(R.id.details_vote_average);
-            textView_vote_average.setText(vote_average);
+            imageView_posterN.setAlpha(0.5f);
+
+
+
+            // Date
+            String CurrentString = date;
+            String[] separated = CurrentString.split("-");
+            String first = separated[0];
+
+            TextView textView_dateN = findViewById(R.id.details_dateN);
+            textView_dateN.setText(first);
+
+
+
+
+            TextView textView_vote_averageN = findViewById(R.id.details_vote_averageN);
+            textView_vote_averageN.setText(vote_average);
+
+
+
+            RatingBar mRatingBar = findViewById(R.id.rating);
+            RatingBar mRatingBar2 = findViewById(R.id.rating2);
+
+            float number = Float.parseFloat(vote_average);
+            Log.e(TAG, "number Rating:" + String.valueOf(number));
+
+            float newValue = calculateRating(number);
+            Log.e(TAG, "newValue Rating:" + newValue);
+
+            mRatingBar.setRating(newValue);
+
+
+            /*LayerDrawable stars = (LayerDrawable) mRatingBar2.getProgressDrawable();
+            stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
+            stars.getDrawable(0).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
+            stars.getDrawable(1).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);*/
+            mRatingBar2.setRating(5);
+
+
+            TextView textView_votes = findViewById(R.id.votes);
+            textView_votes.setText(votes);
 
             TextView textView_overview = findViewById(R.id.details_overview);
             textView_overview.setText(overview);
@@ -186,6 +248,14 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
 
 
     }
+
+    private float calculateRating(float number) {
+        float calculated;
+        float first = (number / 10);
+        calculated = (first*5);
+        return calculated;
+    }
+
 
     public void getTrailers() {
         Object trailers = new FetchTrailerData(mTrailerAdapter).execute(TRAILER, id);

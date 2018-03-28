@@ -11,19 +11,25 @@ import android.os.Parcelable;
 public class Movie implements Parcelable {
 
     private String id;
+    private String votes;
     private String title;
     private String overview;
     private String posterPath;
     private String releaseDate;
     private String voteAverage;
 
-    public Movie(String id, String title, String overview, String posterPath, String releaseDate, String voteAverage) {
+    public Movie(String id, String votes, String title, String overview, String posterPath, String releaseDate, String voteAverage) {
         this.id = id;
+        this.id = votes;
         this.title = title;
         this.overview = overview;
         this.posterPath = posterPath;
         this.releaseDate = releaseDate;
         this.voteAverage = voteAverage;
+    }
+
+    public Movie(){
+
     }
 
     public String getId() {
@@ -50,6 +56,13 @@ public class Movie implements Parcelable {
         return voteAverage;
     }
 
+    public String getVotes() {
+        return votes;
+    }
+
+    public void setVotes(String votes) {
+        this.votes = votes;
+    }
 
     public void setId(String id) {
         this.id = id;
@@ -75,6 +88,7 @@ public class Movie implements Parcelable {
         this.voteAverage = voteAverage;
     }
 
+
     @Override
     public int describeContents() {
         return 0;
@@ -83,6 +97,7 @@ public class Movie implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.id);
+        dest.writeString(this.votes);
         dest.writeString(this.title);
         dest.writeString(this.overview);
         dest.writeString(this.posterPath);
@@ -90,11 +105,9 @@ public class Movie implements Parcelable {
         dest.writeString(this.voteAverage);
     }
 
-    public Movie() {
-    }
-
-    private Movie(Parcel in) {
+    protected Movie(Parcel in) {
         this.id = in.readString();
+        this.votes = in.readString();
         this.title = in.readString();
         this.overview = in.readString();
         this.posterPath = in.readString();
@@ -102,7 +115,7 @@ public class Movie implements Parcelable {
         this.voteAverage = in.readString();
     }
 
-    public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
+    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
         @Override
         public Movie createFromParcel(Parcel source) {
             return new Movie(source);

@@ -32,7 +32,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
     }
 
 
-    public class ReviewViewHolder extends RecyclerView.ViewHolder  {
+    public class ReviewViewHolder extends RecyclerView.ViewHolder {
 
 
         public ReviewViewHolder(View view) {
