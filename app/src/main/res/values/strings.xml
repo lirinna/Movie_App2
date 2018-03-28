@@ -13,4 +13,10 @@
     <string name="movie_details">Movie Details</string>
     <string name="movieitem">MovieItem</string>
     <string name="favorites">Favorites</string>
+    <string name="_1111">1111</string>
+    <string name="votes">VOTES</string>
+    <string name="overview">OVERVIEW</string>
+    <string name="trailer">TRAILER</string>
+    <string name="review">REVIEW</string>
+    <string name="_2016">2016</string>
 </resources>

@@ -22,9 +22,7 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerV
     private static final String TAG = TrailerAdapter.class.getSimpleName();
     private Trailer[] mTrailer;
 
-
     private final TrailerAdapterOnClickHandler mClickHandler;
-
 
     public interface TrailerAdapterOnClickHandler {
         void onClick(Trailer trailerItem);

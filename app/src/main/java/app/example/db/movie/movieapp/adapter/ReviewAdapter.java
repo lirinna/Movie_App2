@@ -1,13 +1,11 @@
 package app.example.db.movie.movieapp.adapter;
 
-import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 
@@ -28,8 +26,6 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
 
     private final ReviewAdapterOnClickHandler mClickHandler;
 
-    private int mExpandedPosition = -1;
-    private int previousExpandedPosition = -1;
 
     public interface ReviewAdapterOnClickHandler {
         void onClick(Review reviewItem);
@@ -46,7 +42,6 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
             super(view);
             mAuthor = view.findViewById(R.id.tv_review_author);
             mContent = view.findViewById(R.id.tv_review_content);
-            //  mMoreText = view.findViewById(R.id.tv_read_more);
             view.setOnClickListener(this);
 
         }
@@ -79,24 +74,6 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         mAuthor.setText(author);
         mContent.setText(content);
 
-/*
-        // https://stackoverflow.com/questions/27203817/recyclerview-expand-collapse-items/27205234#27205234
-        final boolean isExpanded = position == mExpandedPosition;
-        mContent.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
-        holder.itemView.setActivated(isExpanded);
-
-        if (isExpanded)
-            previousExpandedPosition = position;
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mExpandedPosition = isExpanded ? -1 : position;
-                notifyItemChanged(previousExpandedPosition);
-                notifyItemChanged(position);
-            }
-        });
-*/
         Log.e(TAG, "author: " + author);
         Log.e(TAG, "content: " + content);
     }

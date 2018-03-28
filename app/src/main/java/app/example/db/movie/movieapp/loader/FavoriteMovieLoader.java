@@ -31,7 +31,6 @@ public class FavoriteMovieLoader implements LoaderManager.LoaderCallbacks<Cursor
     }
 
 
-
     @SuppressLint("StaticFieldLeak")
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle loaderArgs) {

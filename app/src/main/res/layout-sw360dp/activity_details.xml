@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundColor">
-
 
     <ScrollView
         android:layout_width="match_parent"
@@ -25,9 +25,7 @@
                     android:layout_height="match_parent"
                     android:contentDescription="@string/image_poster"
                     android:paddingTop="100dp"
-                    android:scaleType="centerCrop"
-
-                    />
+                    android:scaleType="centerCrop" />
 
                 <TextView
                     android:id="@+id/details_titleN"
@@ -36,9 +34,11 @@
                     android:layout_marginTop="290dp"
                     android:hint="@string/title"
                     android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
                     android:textColor="#ffffff"
                     android:textSize="25sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:ignore="RtlSymmetry" />
 
 
                 <RatingBar
@@ -47,6 +47,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="170dp"
+                    android:layout_marginStart="170dp"
                     android:layout_marginTop="250dp"
                     android:isIndicator="true"
                     android:numStars="5"
@@ -61,6 +62,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="170dp"
+                    android:layout_marginStart="170dp"
                     android:layout_marginTop="250dp"
                     android:isIndicator="true"
                     android:numStars="5"
@@ -75,6 +77,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="260dp"
+                    android:layout_marginStart="260dp"
                     android:layout_marginTop="220dp"
                     android:fontFamily="sans-serif-light"
                     android:hint="@string/_7_7"
@@ -88,10 +91,11 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="260dp"
                     android:background="@drawable/round"
                     android:gravity="center"
-                    android:hint="2016"
+                    android:hint="@string/_2016"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:textColor="@color/backgroundColor"
@@ -102,6 +106,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="170dp"
+                    android:layout_marginStart="170dp"
                     android:layout_marginTop="270dp"
                     android:orientation="horizontal">
 
@@ -110,23 +115,24 @@
                         android:id="@+id/votes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="1111"
+                        android:hint="@string/_1111"
+                        android:paddingEnd="5dp"
                         android:paddingRight="5dp"
                         android:textColor="@color/hellgrau"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:ignore="RtlSymmetry" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
                         android:layout_marginRight="10dp"
-                        android:text="VOTES"
+                        android:text="@string/votes"
                         android:textColor="@color/hellgrau"
                         android:textStyle="bold" />
                 </LinearLayout>
 
             </RelativeLayout>
-
 
             <View
                 android:layout_width="match_parent"
@@ -142,7 +148,6 @@
                     android:id="@+id/star_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="onClickAddMovie"
                     app:icon_size="25dp"
                     app:icon_type="heart" />
 
@@ -156,29 +161,29 @@
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 android:paddingTop="5dp"
-                android:text="OVERVIEW"
+                android:text="@string/overview"
                 android:textColor="@color/hellgrau" />
 
             <TextView
                 android:id="@+id/details_overview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:hint="@string/overview_text"
                 android:layout_gravity="fill"
-                android:paddingLeft="16dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
+                android:hint="@string/overview_text"
+                android:paddingLeft="16dp"
+                android:paddingStart="16dp"
                 android:paddingTop="5dp"
-                android:textColor="#ffffff" />
-
-
+                android:textColor="#ffffff"
+                tools:ignore="RtlSymmetry" />
 
             <!-- Trailer -->
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:background="@color/TrailerBackgroundColor"
                 android:orientation="vertical">
 
@@ -186,26 +191,20 @@
                     android:id="@+id/tv_trailer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"
                     android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:text="TRAILER"
+                    android:text="@string/trailer"
                     android:textColor="@color/hellgrau" />
 
 
-                <LinearLayout
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerview_trailer"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp" />
 
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/recyclerview_trailer"
-                        android:layout_width="wrap_content"
-                        android:paddingBottom="10dp"
-                        android:layout_height="wrap_content" />
-
-                </LinearLayout>
             </LinearLayout>
 
             <!-- Review -->
@@ -217,26 +216,14 @@
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 android:paddingTop="5dp"
-                android:text="REVIEW"
+                android:text="@string/review"
                 android:textColor="@color/hellgrau" />
 
-            <LinearLayout
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview_review"
                 android:layout_width="wrap_content"
-
-                android:layout_height="wrap_content">
-
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recyclerview_review"
-                    android:layout_width="wrap_content"
-
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
-
-
     </ScrollView>
 </android.support.constraint.ConstraintLayout>

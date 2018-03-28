@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
 
                 if (mSortingQuery.equals("favorites")) {
                     mRecyclerView.setAdapter(mFavoritesAdapter);
-                     getSupportLoaderManager().initLoader(TASK_LOADER_ID, null, new FavoriteMovieLoader(this, mFavoritesAdapter));
+                    getSupportLoaderManager().initLoader(TASK_LOADER_ID, null, new FavoriteMovieLoader(this, mFavoritesAdapter));
                     setTitle(mSortingTitle);
 
                 } else {
@@ -105,7 +105,6 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
     @Override
     protected void onResume() {
         super.onResume();
-
         // re-queries for all tasks
         getSupportLoaderManager().restartLoader(TASK_LOADER_ID, null, new FavoriteMovieLoader(this, mFavoritesAdapter));
     }

@@ -11,11 +11,9 @@ import app.example.db.movie.movieapp.model.Review;
 public class ReviewDetails extends AppCompatActivity {
 
     private static final String TAG = ReviewDetails.class.getSimpleName();
-    private String mAuthor;
-    private String mContent;
 
-    private TextView tv_Author;
-    private TextView tv_Content;
+    private TextView mAuthor;
+    private TextView mContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,16 +22,16 @@ public class ReviewDetails extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        tv_Author = findViewById(R.id.tv_review_author_details);
-        tv_Content = findViewById(R.id.tv_review_content_details);
+        mAuthor = findViewById(R.id.tv_review_author_details);
+        mContent = findViewById(R.id.tv_review_content_details);
 
         Review reviewObject = getIntent().getParcelableExtra("reviewObject");
         if (reviewObject != null) {
-            mAuthor = reviewObject.getAuthor();
-            mContent = reviewObject.getContent();
+            String author = reviewObject.getAuthor();
+            String content = reviewObject.getContent();
 
-            tv_Author.setText(mAuthor);
-            tv_Content.setText(mContent);
+            mAuthor.setText(author);
+            mContent.setText(content);
 
             Log.e(TAG, "mAuthor: " + mAuthor);
             Log.e(TAG, "mContent: " + mContent);

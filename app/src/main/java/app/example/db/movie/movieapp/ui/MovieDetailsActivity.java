@@ -36,7 +36,7 @@ import app.example.db.movie.movieapp.model.Trailer;
  * Created by Katy on 22.02.2018.
  */
 
-public class MovieDetailsActivity extends AppCompatActivity implements TrailerAdapter.TrailerAdapterOnClickHandler,ReviewAdapter.ReviewAdapterOnClickHandler {
+public class MovieDetailsActivity extends AppCompatActivity implements TrailerAdapter.TrailerAdapterOnClickHandler, ReviewAdapter.ReviewAdapterOnClickHandler {
     private static final String TAG = MovieDetailsActivity.class.getSimpleName();
 
     private static final String TRAILER = "videos";
@@ -70,8 +70,6 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-
-
         mTrailerAdapter = new TrailerAdapter(this);
         mReviewAdapter = new ReviewAdapter(this);
 
@@ -87,13 +85,13 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
             vote_average = movieObject.getVoteAverage();
             overview = movieObject.getOverview();
 
-            Log.e(TAG, "id "+ id);
-            Log.e(TAG, "votes: "+ votes);
-            Log.e(TAG,"title: "+ title);
-            Log.e(TAG,"date: "+ date);
-            Log.e(TAG, "poster: "+poster);
-            Log.e(TAG, "vote_average: "+vote_average);
-            Log.e(TAG, "overview: "+overview);
+            Log.e(TAG, "id " + id);
+            Log.e(TAG, "votes: " + votes);
+            Log.e(TAG, "title: " + title);
+            Log.e(TAG, "date: " + date);
+            Log.e(TAG, "poster: " + poster);
+            Log.e(TAG, "vote_average: " + vote_average);
+            Log.e(TAG, "overview: " + overview);
 
             TextView textView_titleN = findViewById(R.id.details_titleN);
             textView_titleN.setText(title);
@@ -104,7 +102,6 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
                     .into(imageView_posterN);
 
             imageView_posterN.setAlpha(0.5f);
-
 
             // Date
             String CurrentString = date;
@@ -129,9 +126,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
             Log.e(TAG, "newValue Rating:" + newValue);
 
             mRatingBar.setRating(newValue);
-
             mRatingBar2.setRating(5);
-
 
             TextView textView_votes = findViewById(R.id.votes);
             textView_votes.setText(votes);
@@ -155,8 +150,6 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
             public void liked(LikeButton likeButton) {
 
                 ContentValues contentValues = new ContentValues();
-
-                Log.e(TAG, "ID IN LIKEBUTTON: " + id);
 
                 contentValues.put(MovieContract.MovieEntry.COLUMN_NAME_MOVIE_ID, id);
                 contentValues.put(MovieContract.MovieEntry.COLUMN_NAME_VOTES, votes);
@@ -203,7 +196,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
 
 
                 if (uri != null) {
-                    Log.e(TAG, "delete urfi: " + uri.toString());
+                    Log.e(TAG, "delete uri: " + uri.toString());
                 }
 
 
@@ -218,9 +211,6 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
         GridLayoutManager reviewGridManager = new GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false);
         mRecyclerViewTrailer.setLayoutManager(trailerGridManager);
         mRecyclerViewReview.setLayoutManager(reviewGridManager);
-
-       // mRecyclerViewTrailer.setHasFixedSize(true);
-
 
         mRecyclerViewTrailer.setAdapter(mTrailerAdapter);
         mRecyclerViewReview.setAdapter(mReviewAdapter);
@@ -291,15 +281,12 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
     }
 
 
-
     @Override
     public void onClick(Trailer trailerItem) {
         String key = trailerItem.getKey();
         String trailerUrl = makeYoutubeUrl(key);
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(trailerUrl));
         startActivity(intent);
-
-        Log.e(TAG, "onClick für Trailer");
     }
 
     private String makeYoutubeUrl(String trailerKey) {
@@ -310,18 +297,9 @@ public class MovieDetailsActivity extends AppCompatActivity implements TrailerAd
 
     @Override
     public void onClick(Review reviewItem) {
-        Log.e(TAG, "onClick für REview");
-      String author =  reviewItem.getAuthor();
-        Log.e(TAG, "onClick für REview" +author);
-
-        reviewItem.getContent();
-
         Intent intent = new Intent(this, ReviewDetails.class);
         intent.putExtra("reviewObject", reviewItem);
         startActivity(intent);
-
-
-
     }
 
 }
