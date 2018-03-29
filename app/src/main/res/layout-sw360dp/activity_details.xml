@@ -139,19 +139,14 @@
                 android:layout_height="1dp"
                 android:background="#AACCFF" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
+
+            <com.like.LikeButton
+                android:id="@+id/star_button"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                app:icon_size="25dp"
+                app:icon_type="heart" />
 
-                <com.like.LikeButton
-                    android:id="@+id/star_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:icon_size="25dp"
-                    app:icon_type="heart" />
-
-            </LinearLayout>
 
             <!-- Overview -->
             <TextView
@@ -160,7 +155,6 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
-                android:paddingTop="5dp"
                 android:text="@string/overview"
                 android:textColor="@color/hellgrau" />
 
@@ -203,7 +197,9 @@
                     android:id="@+id/recyclerview_trailer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="10dp" />
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp" />
 
             </LinearLayout>
 
