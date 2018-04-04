@@ -2,6 +2,18 @@
 
 [Udacity Android Developer Nanodegree](https://www.udacity.com/course/android-developer-nanodegree-by-google--nd801), Project 2.
 
+
+#### Task List:
+
+- [x] Upon launch, present the user with an grid arrangement of movie posters.
+- [x] Allow user to change sort order via a setting: most popular, top rated, favorite
+- [x] Allow user to tap on a movie poster and transition to a details screen with additional information
+- [x] Allow user to view and play trailers (either in the youtube app or a web browser)
+- [x] Allow user to read reviews of a selected movie
+- [x] Allow user to mark a movie as a favorite in the details view by tapping a button(star)
+- [x] Create a database and content provider to store the names and ids of the user's favorite movies
+
+
 ### Getting Started
 
 This app was built using [The Movie Database API](https://www.themoviedb.org/documentation/api). 
