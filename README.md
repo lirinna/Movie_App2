@@ -2,7 +2,7 @@
 
 [Udacity Android Developer Nanodegree](https://www.udacity.com/course/android-developer-nanodegree-by-google--nd801), Project 2.
 
-Allows user to discover the most popular movies playing
+Allows user to discover the most popular movies playing.
 
 #### Task List:
 
