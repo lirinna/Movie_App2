@@ -6,7 +6,7 @@ Allows user to discover the most popular movies playing.
 
 #### Task List:
 
-- [x] Upon launch, present the user with an grid arrangement of movie posters
+- [x] Upon launch, present the user with a grid arrangement of movie posters
 - [x] Allow user to change sort order via a setting: most popular, top rated, favorite
 - [x] Allow user to tap on a movie poster and transition to a details screen with additional information
 - [x] Allow user to view and play trailers (either in the youtube app or a web browser)
